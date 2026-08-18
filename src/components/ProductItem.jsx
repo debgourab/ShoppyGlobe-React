@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/cartSlice";
 import LazyImage from "./LazyImage";
+import { formatINR } from "../utils/currency";
 
 export default function ProductItem({ product }) {
   // Dispatch the cart action locally so each card can add its own product.
@@ -27,7 +28,7 @@ export default function ProductItem({ product }) {
           <span>{product.stock} in stock</span>
         </div>
         <div className="price-row">
-          <strong>${product.price.toFixed(2)}</strong>
+          <strong>{formatINR(product.price)}</strong>
           <button
             className="add-btn"
             type="button"

@@ -1,5 +1,7 @@
 // API service: centralize DummyJSON product-list and product-detail requests with HTTP error handling.
 // Keep the API base URL in one place so all product requests use the same service endpoint.
+import { convertToINR } from "../utils/currency";
+
 const API_URL = "https://dummyjson.com/products";
 
 // Fetch the catalogue and validate the response shape before exposing data to React.
@@ -16,7 +18,7 @@ export async function fetchProducts(signal) {
     throw new Error("The product service returned an unexpected response.");
   }
 
-  return data.products;
+  return data.products.map((product) => ({ ...product, price: convertToINR(product.price) }));
 }
 
 // Fetch one product by route id and convert a 404 into a predictable application error.
@@ -31,5 +33,8 @@ export async function fetchProductById(productId, signal) {
     throw new Error(`Unable to load this product. Server returned ${response.status}.`);
   }
 
-  return response.json();
+  const product = await response.json();
+
+  // Convert the detail price with the same rule used by the catalogue endpoint.
+  return { ...product, price: convertToINR(product.price) };
 }

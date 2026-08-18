@@ -7,6 +7,7 @@ import { fetchProductById } from "../api/productsApi";
 import LazyImage from "./LazyImage";
 import Loading from "./Loading";
 import ErrorState from "./ErrorState";
+import { formatINR } from "../utils/currency";
 
 export default function ProductDetail() {
   // Read the dynamic URL segment so the detail view always loads the requested product.
@@ -69,7 +70,7 @@ export default function ProductDetail() {
           <p className="detail-description">{product.description}</p>
 
           <div className="detail-price">
-            <strong>${product.price.toFixed(2)}</strong>
+            <strong>{formatINR(product.price)}</strong>
             <span>{Math.round(product.discountPercentage)}% discount</span>
           </div>
 

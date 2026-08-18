@@ -159,3 +159,23 @@ git rev-list --count HEAD
 ```
 
 The repository currently contains 25+ commits.
+
+## Currency and Indian pricing
+
+- Product prices are displayed in **Indian Rupees (₹)**.
+- DummyJSON's source prices are treated as USD and converted using the demo catalogue rate of **₹90 per $1**.
+- Cart, shipping, checkout, and order totals all use INR consistently.
+- Free shipping is applied to orders of ₹9,000 or more; otherwise shipping is ₹499.
+
+## Dependency versions
+
+The project pins its direct dependencies to the latest stable versions verified for this release:
+
+- React 19.2.8
+- React DOM 19.2.8
+- Redux Toolkit 2.12.0
+- React Redux 9.3.0
+- React Router DOM 7.18.2
+- react-lazy-load-image-component 1.6.3
+- Vite 8.2.0
+- @vitejs/plugin-react 6.0.5

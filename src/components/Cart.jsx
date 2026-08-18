@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { selectCartItems, selectCartSubtotal } from "../store/selectors";
 import CartItem from "./CartItem";
 import EmptyState from "./EmptyState";
+import { formatINR } from "../utils/currency";
 
 export default function Cart() {
   // Select only the cart data this page needs so Redux remains the single source of truth.
@@ -11,7 +12,7 @@ export default function Cart() {
   const subtotal = useSelector(selectCartSubtotal);
   const navigate = useNavigate();
   // Apply free shipping at the configured threshold and a flat fee below it.
-  const shipping = subtotal > 0 ? (subtotal >= 100 ? 0 : 8.99) : 0;
+  const shipping = subtotal > 0 ? (subtotal >= 9000 ? 0 : 499) : 0;
   const total = subtotal + shipping;
 
   // Render a dedicated empty state instead of an unusable checkout summary.
@@ -41,10 +42,10 @@ export default function Cart() {
 
         <aside className="summary-card">
           <h2>Order Summary</h2>
-          <div className="summary-row"><span>Subtotal</span><b>${subtotal.toFixed(2)}</b></div>
-          <div className="summary-row"><span>Shipping</span><b>{shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}</b></div>
+          <div className="summary-row"><span>Subtotal</span><b>{formatINR(subtotal)}</b></div>
+          <div className="summary-row"><span>Shipping</span><b>{shipping === 0 ? "FREE" : formatINR(shipping)}</b></div>
           <div className="summary-divider" />
-          <div className="summary-row total-row"><span>Total</span><b>${total.toFixed(2)}</b></div>
+          <div className="summary-row total-row"><span>Total</span><b>{formatINR(total)}</b></div>
           <button className="primary-btn wide-btn" type="button" onClick={() => navigate("/checkout")}>
             Proceed to Checkout
           </button>

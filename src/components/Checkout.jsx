@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { clearCart } from "../store/cartSlice";
 import { selectCartItems, selectCartSubtotal } from "../store/selectors";
+import { formatINR } from "../utils/currency";
 
 export default function Checkout() {
   const items = useSelector(selectCartItems);
@@ -21,7 +22,7 @@ export default function Checkout() {
   }, [items.length, navigate, submitted]);
 
   // Reuse the cart shipping rule to keep checkout totals consistent with the cart page.
-  const shipping = subtotal >= 100 ? 0 : 8.99;
+  const shipping = subtotal >= 9000 ? 0 : 499;
   const total = subtotal + shipping;
 
   // Update only the field that changed while preserving the rest of the form state.
@@ -84,13 +85,13 @@ export default function Checkout() {
           {items.map((item) => (
             <div className="checkout-item" key={item.id}>
               <span>{item.title} × {item.quantity}</span>
-              <b>${(item.price * item.quantity).toFixed(2)}</b>
+              <b>{formatINR(item.price * item.quantity)}</b>
             </div>
           ))}
           <div className="summary-divider" />
-          <div className="summary-row"><span>Subtotal</span><b>${subtotal.toFixed(2)}</b></div>
-          <div className="summary-row"><span>Shipping</span><b>{shipping === 0 ? "FREE" : `$${shipping.toFixed(2)}`}</b></div>
-          <div className="summary-row total-row"><span>Total</span><b>${total.toFixed(2)}</b></div>
+          <div className="summary-row"><span>Subtotal</span><b>{formatINR(subtotal)}</b></div>
+          <div className="summary-row"><span>Shipping</span><b>{shipping === 0 ? "FREE" : formatINR(shipping)}</b></div>
+          <div className="summary-row total-row"><span>Total</span><b>{formatINR(total)}</b></div>
         </aside>
       </div>
     </div>
