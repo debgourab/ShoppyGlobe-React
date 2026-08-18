@@ -5,8 +5,10 @@ import { addToCart } from "../store/cartSlice";
 import LazyImage from "./LazyImage";
 
 export default function ProductItem({ product }) {
+  // Dispatch the cart action locally so each card can add its own product.
   const dispatch = useDispatch();
 
+  // Render the reusable product card with navigation, pricing, stock, and cart controls.
   return (
     <article className="product-card">
       <Link className="product-image-wrap" to={`/products/${product.id}`}>

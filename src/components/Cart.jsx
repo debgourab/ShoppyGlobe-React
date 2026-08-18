@@ -6,14 +6,18 @@ import CartItem from "./CartItem";
 import EmptyState from "./EmptyState";
 
 export default function Cart() {
+  // Select only the cart data this page needs so Redux remains the single source of truth.
   const items = useSelector(selectCartItems);
   const subtotal = useSelector(selectCartSubtotal);
   const navigate = useNavigate();
+  // Apply free shipping at the configured threshold and a flat fee below it.
   const shipping = subtotal > 0 ? (subtotal >= 100 ? 0 : 8.99) : 0;
   const total = subtotal + shipping;
 
+  // Render a dedicated empty state instead of an unusable checkout summary.
   if (!items.length) {
-    return (
+    // Render cart rows alongside a sticky order summary for quick checkout access.
+  return (
       <div className="container page-container">
         <EmptyState title="Your cart is empty" message="Add some products and they will appear here." />
       </div>

@@ -4,12 +4,14 @@ import { createBrowserRouter, Outlet, ScrollRestoration } from "react-router-dom
 import Header from "./components/Header";
 import Loading from "./components/Loading";
 
+// Lazy-load route modules so the initial bundle stays small and pages are fetched on demand.
 const Home = lazy(() => import("./pages/Home"));
 const ProductDetail = lazy(() => import("./components/ProductDetail"));
 const Cart = lazy(() => import("./components/Cart"));
 const Checkout = lazy(() => import("./components/Checkout"));
 const NotFound = lazy(() => import("./components/NotFound"));
 
+// Shared layout keeps the header, route content, footer, and scroll restoration consistent.
 function AppLayout() {
   return (
     <div className="app-shell">
@@ -30,6 +32,7 @@ function AppLayout() {
   );
 }
 
+// Route configuration maps URLs to lazy-loaded pages and provides a common error boundary.
 export const router = createBrowserRouter([
   {
     path: "/",

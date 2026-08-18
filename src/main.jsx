@@ -7,6 +7,7 @@ import { store } from "./store";
 import { router } from "./App";
 import "./styles/index.css";
 
+// Mount the application into the root element with strict checks, Redux, and the router.
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>

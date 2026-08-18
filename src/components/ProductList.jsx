@@ -8,9 +8,11 @@ import Loading from "./Loading";
 import ErrorState from "./ErrorState";
 
 export default function ProductList() {
+  // Load the remote catalogue through the custom hook and read the global search query.
   const { products, status, error, retry } = useProducts();
   const searchTerm = useSelector(selectSearchTerm).trim().toLowerCase();
 
+  // Memoize filtering so typing in the search box does not recompute unchanged results.
   const filteredProducts = useMemo(() => {
     if (!searchTerm) return products;
 
@@ -21,9 +23,11 @@ export default function ProductList() {
     );
   }, [products, searchTerm]);
 
+  // Handle asynchronous states before rendering the product grid.
   if (status === "loading") return <Loading />;
   if (status === "error") return <ErrorState message={error} onRetry={retry} />;
 
+  // Render the catalogue or a no-results message after filtering is complete.
   return (
     <section className="products-section" aria-labelledby="products-heading">
       <div className="section-heading">

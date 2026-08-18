@@ -9,15 +9,18 @@ import Loading from "./Loading";
 import ErrorState from "./ErrorState";
 
 export default function ProductDetail() {
+  // Read the dynamic URL segment so the detail view always loads the requested product.
   const { productId } = useParams();
   const dispatch = useDispatch();
   const [product, setProduct] = useState(null);
   const [status, setStatus] = useState("loading");
   const [error, setError] = useState("");
 
+  // Fetch whenever the route id changes and cancel stale requests during navigation or unmount.
   useEffect(() => {
     const controller = new AbortController();
 
+    // Keep asynchronous work inside the effect so request lifecycle follows the component lifecycle.
     async function loadProduct() {
       setStatus("loading");
       setError("");
@@ -36,9 +39,11 @@ export default function ProductDetail() {
     }
 
     loadProduct();
-    return () => controller.abort();
+    // Render the selected product with pricing, metadata, image, and cart action.
+  return () => controller.abort();
   }, [productId]);
 
+  // Map request state to loading, error, or product content without rendering incomplete data.
   if (status === "loading") return <Loading fullPage />;
   if (status === "error") {
     return (

@@ -2,6 +2,7 @@
 import ProductList from "../components/ProductList";
 
 export default function Home() {
+  // Compose the marketing hero with the product catalogue to form the store landing page.
   return (
     <>
       <section className="hero">

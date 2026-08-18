@@ -1,6 +1,8 @@
 // API service: centralize DummyJSON product-list and product-detail requests with HTTP error handling.
+// Keep the API base URL in one place so all product requests use the same service endpoint.
 const API_URL = "https://dummyjson.com/products";
 
+// Fetch the catalogue and validate the response shape before exposing data to React.
 export async function fetchProducts(signal) {
   const response = await fetch(API_URL, { signal });
 
@@ -17,6 +19,7 @@ export async function fetchProducts(signal) {
   return data.products;
 }
 
+// Fetch one product by route id and convert a 404 into a predictable application error.
 export async function fetchProductById(productId, signal) {
   const response = await fetch(`${API_URL}/${encodeURIComponent(productId)}`, { signal });
 

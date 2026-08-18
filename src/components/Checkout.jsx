@@ -11,21 +11,26 @@ export default function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Keep checkout fields controlled so the submitted values always match the visible form.
   const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", city: "", postalCode: "" });
   const [submitted, setSubmitted] = useState(false);
 
+  // Protect the checkout route from being opened with an empty cart.
   useEffect(() => {
     if (!items.length && !submitted) navigate("/cart", { replace: true });
   }, [items.length, navigate, submitted]);
 
+  // Reuse the cart shipping rule to keep checkout totals consistent with the cart page.
   const shipping = subtotal >= 100 ? 0 : 8.99;
   const total = subtotal + shipping;
 
+  // Update only the field that changed while preserving the rest of the form state.
   function handleChange(event) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
   }
 
+  // Prevent a browser reload, show success feedback, clear the cart, and redirect home.
   function handleSubmit(event) {
     event.preventDefault();
     setSubmitted(true);
@@ -35,8 +40,10 @@ export default function Checkout() {
     setTimeout(() => navigate("/", { replace: true }), 1600);
   }
 
+  // Replace the form with a short success state after a successful submission.
   if (submitted) {
-    return (
+    // Render customer inputs and a read-only order summary side by side.
+  return (
       <div className="container page-container">
         <section className="success-card">
           <div className="success-icon">✓</div>

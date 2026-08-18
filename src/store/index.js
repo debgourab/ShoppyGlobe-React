@@ -2,6 +2,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "./cartSlice";
 
+// Configure Redux once and register the cart slice under a stable state key.
 export const store = configureStore({
   reducer: {
     cart: cartReducer
