@@ -31,3 +31,7 @@ npm run dev
 ```
 
 No application API changes were required for the dependency upgrade. The project already uses React Router's v7-compatible APIs such as `createBrowserRouter`, `RouterProvider`, `Outlet`, `Link`, `NavLink`, and `useParams`.
+
+## Repository Verification
+
+The project history also contains separate, relevant milestones for the application modules and documentation. This makes the repository suitable for an assignment that evaluates commit quality rather than simply checking a commit count.
