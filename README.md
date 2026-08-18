@@ -97,7 +97,7 @@ ShoppyGlobe/
 
 ## GitHub submission
 
-The assignment asks for at least 25 relevant Git commits. Do not fabricate commits. After creating your repository, use meaningful commits such as:
+I use meaningful commits such as:
 
 1. `chore: initialize vite react project`
 2. `feat: configure redux store`
@@ -126,26 +126,9 @@ The assignment asks for at least 25 relevant Git commits. Do not fabricate commi
 25. `style: make application responsive`
 26. `docs: update project readme`
 
-Replace the repository-link placeholder below with your real GitHub URL after publishing:
 
-**GitHub Repository:** `ADD-YOUR-GITHUB-REPOSITORY-LINK-HERE`
+**GitHub Repository:** [https://github.com/debgourab/ShoppyGlobe-React.git]
 
-## Important submission note
-
-Do not submit `node_modules`. Run `npm install` after extracting the project to recreate it locally.
-
-Before submission, run:
-
-```bash
-npm run build
-```
-
-and verify that the production build completes without errors.
-
-
-## Code comments
-
-Major logical blocks are documented with explanatory comments covering API requests, hooks and effects, Redux state/actions/selectors, routing, props, product rendering, cart operations, checkout flow, error handling, lazy loading, and responsive CSS sections.
 
 ## GitHub Commit History
 
