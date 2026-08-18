@@ -1,4 +1,4 @@
-// Product detail: read the dynamic route id, fetch that product with useEffect, handle errors, and add it to Redux cart.
+// Product detail: read the dynamic route id, fetch the selected Fake Store API product, and add it to the Redux cart.
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import ErrorState from "./ErrorState";
 import { formatINR } from "../utils/currency";
 
 export default function ProductDetail() {
-  // Read the dynamic URL segment so the detail view always loads the requested product.
+  // Read the dynamic URL segment so the detail view loads the requested product.
   const { productId } = useParams();
   const dispatch = useDispatch();
   const [product, setProduct] = useState(null);
@@ -21,7 +21,7 @@ export default function ProductDetail() {
   useEffect(() => {
     const controller = new AbortController();
 
-    // Keep asynchronous work inside the effect so request lifecycle follows the component lifecycle.
+    // Keep asynchronous work inside the effect so the request lifecycle follows the component lifecycle.
     async function loadProduct() {
       setStatus("loading");
       setError("");
@@ -33,54 +33,73 @@ export default function ProductDetail() {
       } catch (err) {
         if (err.name === "AbortError") return;
         setStatus("error");
-        setError(err.message === "PRODUCT_NOT_FOUND"
-          ? "The requested product does not exist."
-          : err.message || "Unable to load product details.");
+        setError(
+          err.message === "PRODUCT_NOT_FOUND"
+            ? "The requested product does not exist."
+            : err.message || "Unable to load product details."
+        );
       }
     }
 
     loadProduct();
-    // Render the selected product with pricing, metadata, image, and cart action.
-  return () => controller.abort();
+
+    // Abort the request if the user navigates away before it finishes.
+    return () => controller.abort();
   }, [productId]);
 
   // Map request state to loading, error, or product content without rendering incomplete data.
   if (status === "loading") return <Loading fullPage />;
+
   if (status === "error") {
     return (
       <div className="container page-container">
         <ErrorState message={error} />
-        <div className="center-link"><Link to="/">← Back to products</Link></div>
+        <div className="center-link">
+          <Link to="/">← Back to products</Link>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="container page-container">
+      {/* Provide an easy way to return to the catalogue. */}
       <Link className="back-link" to="/">← Back to products</Link>
+
       <section className="detail-card">
         <div className="detail-image-wrap">
-          <LazyImage className="detail-image" src={product.images?.[0] || product.thumbnail} alt={product.title} />
+          {/* Fake Store API provides a single image URL for every product. */}
+          <LazyImage className="detail-image" src={product.image} alt={product.title} />
         </div>
 
         <div className="detail-info">
+          {/* Display category, title, rating, description, and INR price from the normalized API data. */}
           <p className="eyebrow">{product.category}</p>
           <h1>{product.title}</h1>
-          <div className="detail-rating">★ {product.rating.toFixed(1)} <span>•</span> {product.stock} available</div>
+          <div className="detail-rating">
+            ★ {product.rating.toFixed(1)} <span>•</span> {product.ratingCount} ratings
+          </div>
           <p className="detail-description">{product.description}</p>
 
           <div className="detail-price">
+            {/* The API price is converted from USD to INR in the API service. */}
             <strong>{formatINR(product.price)}</strong>
-            <span>{Math.round(product.discountPercentage)}% discount</span>
+            <span>Indian Rupee price</span>
           </div>
 
           <div className="detail-meta">
-            <div><span>Brand</span><b>{product.brand || "ShoppyGlobe"}</b></div>
-            <div><span>SKU</span><b>{product.sku || `SG-${product.id}`}</b></div>
-            <div><span>Warranty</span><b>{product.warrantyInformation || "Standard warranty"}</b></div>
+            {/* Fake Store API exposes category instead of stock, brand, SKU, or warranty fields. */}
+            <div><span>Category</span><b>{product.category}</b></div>
+            <div><span>Product ID</span><b>SG-{product.id}</b></div>
+            <div><span>Ratings</span><b>{product.ratingCount}</b></div>
           </div>
 
-          <button className="primary-btn wide-btn" type="button" onClick={() => dispatch(addToCart(product))}>
+          {/* Add the selected product to the shopping cart. */}
+          <button
+            className="primary-btn wide-btn"
+            type="button"
+            onClick={() => dispatch(addToCart(product))}
+          >
             Add to Cart
           </button>
         </div>

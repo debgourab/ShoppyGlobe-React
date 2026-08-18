@@ -51,7 +51,7 @@ npm run preview
 
 Products are fetched from:
 
-`https://dummyjson.com/products`
+`https://fakestoreapi.com/products`
 
 The API response is normalized by the custom `useProducts` hook.
 
@@ -163,7 +163,7 @@ The repository currently contains 25+ commits.
 ## Currency and Indian pricing
 
 - Product prices are displayed in **Indian Rupees (₹)**.
-- DummyJSON's source prices are treated as USD and converted using the demo catalogue rate of **₹90 per $1**.
+- Fake Store API's source prices are treated as USD and converted using the demo catalogue rate of **₹90 per $1**.
 - Cart, shipping, checkout, and order totals all use INR consistently.
 - Free shipping is applied to orders of ₹9,000 or more; otherwise shipping is ₹499.
 
