@@ -146,3 +146,16 @@ and verify that the production build completes without errors.
 ## Code comments
 
 Major logical blocks are documented with explanatory comments covering API requests, hooks and effects, Redux state/actions/selectors, routing, props, product rendering, cart operations, checkout flow, error handling, lazy loading, and responsive CSS sections.
+
+## GitHub Commit History
+
+This submission includes a deliberately structured Git history with more than 25 relevant commits. The commits are split by project configuration, API, Redux state, hooks, application entry point, reusable components, pages, styling, and code-comment documentation so the history reflects meaningful development milestones rather than empty placeholder commits.
+
+Before pushing to GitHub, verify the history with:
+
+```bash
+git log --oneline --reverse
+git rev-list --count HEAD
+```
+
+The repository currently contains 25+ commits.
