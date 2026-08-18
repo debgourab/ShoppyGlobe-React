@@ -1,18 +1,15 @@
-// Home page: combine the promotional hero with the reusable product catalogue.
 import ProductList from "../components/ProductList";
 
 export default function Home() {
-  // Compose the marketing hero with the product catalogue to form the store landing page.
   return (
     <>
       <section className="hero">
         <div className="container hero-inner">
           <div className="hero-copy">
             <p className="eyebrow">Welcome to ShoppyGlobe</p>
-            <h1>Everything you need.<br /><span>All in one place.</span></h1>
+            <h1>Shop the World,<br /><span>All in one place.</span></h1>
             <p className="hero-text">
-              Discover quality products across electronics, fashion, beauty,
-              groceries and more — with a simple shopping experience.
+               Discover millions of products from global brands. Enjoy fast shipping, unbeatable daily deals, and a seamless checkout experience.
             </p>
             <a className="primary-btn hero-btn" href="#products-heading">Shop now <span>→</span></a>
           </div>
