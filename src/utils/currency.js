@@ -1,5 +1,5 @@
 // Currency utilities: keep every monetary calculation and display consistent in Indian Rupees.
-// DummyJSON product prices are treated as USD values, so the catalogue is converted to INR once.
+// Fake Store API product prices are treated as USD values, so the catalogue is converted to INR once.
 export const USD_TO_INR = 90;
 
 // Convert the API's numeric USD price into a whole-rupee catalogue price for this demo store.
