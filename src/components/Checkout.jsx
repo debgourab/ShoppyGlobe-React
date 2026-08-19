@@ -1,4 +1,3 @@
-// Checkout: collect customer details, show the order summary, place the dummy order, clear Redux cart, and redirect home.
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -12,38 +11,30 @@ export default function Checkout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Keep checkout fields controlled so the submitted values always match the visible form.
   const [form, setForm] = useState({ name: "", email: "", phone: "", address: "", city: "", postalCode: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  // Protect the checkout route from being opened with an empty cart.
   useEffect(() => {
     if (!items.length && !submitted) navigate("/cart", { replace: true });
   }, [items.length, navigate, submitted]);
 
-  // Reuse the cart shipping rule to keep checkout totals consistent with the cart page.
   const shipping = subtotal >= 9000 ? 0 : 499;
   const total = subtotal + shipping;
 
-  // Update only the field that changed while preserving the rest of the form state.
   function handleChange(event) {
     const { name, value } = event.target;
     setForm((current) => ({ ...current, [name]: value }));
   }
 
-  // Prevent a browser reload, show success feedback, clear the cart, and redirect home.
   function handleSubmit(event) {
     event.preventDefault();
     setSubmitted(true);
     dispatch(clearCart());
 
-    // The assignment requires the success message, cart reset, and automatic home redirect.
     setTimeout(() => navigate("/", { replace: true }), 1600);
   }
 
-  // Replace the form with a short success state after a successful submission.
   if (submitted) {
-    // Render customer inputs and a read-only order summary side by side.
   return (
       <div className="container page-container">
         <section className="success-card">
@@ -69,9 +60,9 @@ export default function Checkout() {
           <h2>Your details</h2>
 
           <div className="form-grid">
-            <label>Full name<input required name="name" value={form.name} onChange={handleChange} placeholder="John Doe" /></label>
-            <label>Email address<input required type="email" name="email" value={form.email} onChange={handleChange} placeholder="john@example.com" /></label>
-            <label>Phone number<input required name="phone" value={form.phone} onChange={handleChange} placeholder="+91 98765 43210" /></label>
+            <label>Full name<input required name="name" value={form.name} onChange={handleChange} placeholder="Deb Gourab Biswas" /></label>
+            <label>Email address<input required type="email" name="email" value={form.email} onChange={handleChange} placeholder="debgourab@gmail.com" /></label>
+            <label>Phone number<input required name="phone" value={form.phone} onChange={handleChange} placeholder="+91 1234567890" /></label>
             <label>City<input required name="city" value={form.city} onChange={handleChange} placeholder="Kolkata" /></label>
             <label className="full-field">Address<input required name="address" value={form.address} onChange={handleChange} placeholder="Street and house number" /></label>
             <label>Postal code<input required name="postalCode" value={form.postalCode} onChange={handleChange} placeholder="700001" /></label>
