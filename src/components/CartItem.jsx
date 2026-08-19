@@ -1,14 +1,11 @@
-// Cart item: display one cart entry and dispatch quantity or removal actions while preserving the minimum quantity of one.
 import { useDispatch } from "react-redux";
 import { decrementQuantity, incrementQuantity, removeFromCart } from "../store/cartSlice";
 import LazyImage from "./LazyImage";
 import { formatINR } from "../utils/currency";
 
 export default function CartItem({ item }) {
-  // Dispatch cart actions from button handlers while keeping the component presentation-focused.
   const dispatch = useDispatch();
 
-  // Display product information, quantity controls, line total, and removal action.
   return (
     <article className="cart-item">
       <LazyImage className="cart-item-image" src={item.thumbnail} alt={item.title} />
