@@ -27,7 +27,7 @@ export default function Cart() {
           <p className="eyebrow">Shopping bag</p>
           <h1>Your Cart</h1>
         </div>
-        <Link className="back-link" to="/">Continue shopping →</Link>
+        <Link className="back-link" to="/products">Continue shopping -&gt;</Link>
       </div>
 
       <div className="cart-layout">

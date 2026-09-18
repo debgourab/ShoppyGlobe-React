@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Loading from "./components/Loading";
 
 const Home = lazy(() => import("./pages/Home"));
+const BrowseProducts = lazy(() => import("./pages/BrowseProducts"));
 const ProductDetail = lazy(() => import("./components/ProductDetail"));
 const Cart = lazy(() => import("./components/Cart"));
 const Checkout = lazy(() => import("./components/Checkout"));
@@ -36,6 +37,7 @@ export const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
+      { path: "products", element: <BrowseProducts /> },
       { path: "products/:productId", element: <ProductDetail /> },
       { path: "cart", element: <Cart /> },
       { path: "checkout", element: <Checkout /> },

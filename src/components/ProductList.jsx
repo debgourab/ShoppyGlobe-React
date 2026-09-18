@@ -1,33 +1,38 @@
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo } from "react";
+import { fetchProducts } from "../api/productsApi";
 import useProducts from "../hooks/useProducts";
-import { selectSearchTerm } from "../store/selectors";
 import ProductItem from "./ProductItem";
 import Loading from "./Loading";
 import ErrorState from "./ErrorState";
 
-export default function ProductList() {
-  const { products, status, error, retry } = useProducts();
-  const searchTerm = useSelector(selectSearchTerm).trim().toLowerCase();
+export default function ProductList({ searchTerm = "" }) {
+  const { products, status, error, loadProducts, abortProducts } = useProducts(fetchProducts);
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+
+  useEffect(() => {
+    loadProducts();
+
+    return () => abortProducts();
+  }, [loadProducts, abortProducts]);
 
   const filteredProducts = useMemo(() => {
-    if (!searchTerm) {
+    if (!normalizedSearchTerm) {
       return products;
     }
 
     return products.filter((product) =>
       [product.title, product.category, product.brand]
         .filter(Boolean)
-        .some((value) => value.toLowerCase().includes(searchTerm))
+        .some((value) => value.toLowerCase().includes(normalizedSearchTerm))
     );
-  }, [products, searchTerm]);
+  }, [products, normalizedSearchTerm]);
 
-  if (status === "loading") {
+  if (status === "idle" || status === "loading") {
     return <Loading />;
   }
 
   if (status === "error") {
-    return <ErrorState message={error} onRetry={retry} />;
+    return <ErrorState message={error} onRetry={loadProducts} />;
   }
 
   const productContent = filteredProducts.length > 0 ? (
@@ -39,7 +44,7 @@ export default function ProductList() {
   ) : (
     <div className="no-results">
       <h3>No products found</h3>
-      <p>Try a different search term.</p>
+      <p>Try searching for a different product, brand, or category.</p>
     </div>
   );
 
@@ -48,7 +53,9 @@ export default function ProductList() {
       <div className="section-heading">
         <div>
           <p className="eyebrow">Curated collection</p>
-          <h2 id="products-heading">Explore Products</h2>
+          <h2 id="products-heading">
+            {normalizedSearchTerm ? "Search Results" : "All Products"}
+          </h2>
         </div>
 
         <span className="result-count">

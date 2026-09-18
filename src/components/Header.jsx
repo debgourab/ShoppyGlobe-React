@@ -1,24 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { selectCartCount, selectSearchTerm } from "../store/selectors";
-import { setSearchTerm } from "../store/cartSlice";
-
-function SearchBar() {
-  const dispatch = useDispatch();
-  const searchTerm = useSelector(selectSearchTerm);
-
-  return (
-    <label className="search-box" aria-label="Search products">
-      <span className="search-icon" aria-hidden="true">⌕</span>
-      <input
-        value={searchTerm}
-        onChange={(event) => dispatch(setSearchTerm(event.target.value))}
-        placeholder="search products..."
-        type="search"
-      />
-    </label>
-  );
-}
+import { useSelector } from "react-redux";
+import { selectCartCount } from "../store/selectors";
 
 export default function Header() {
   const cartCount = useSelector(selectCartCount);
@@ -31,14 +13,14 @@ export default function Header() {
           <span>Shoppy<span>Globe</span></span>
         </Link>
 
-        <SearchBar />
-
         <nav className="nav-links" aria-label="Main navigation">
           <NavLink to="/" end className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
             Home
           </NavLink>
-          <NavLink to="/cart" className="cart-link">
-            <span aria-hidden="true">🛒</span>
+          <NavLink to="/products" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+            Browse Products
+          </NavLink>
+          <NavLink to="/cart" className={({ isActive }) => isActive ? "cart-link active" : "cart-link"}>
             <span>Cart</span>
             <span className="cart-badge">{cartCount}</span>
           </NavLink>

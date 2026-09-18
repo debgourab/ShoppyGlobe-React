@@ -49,7 +49,7 @@ export default function ProductDetail() {
       <div className="container page-container">
         <ErrorState message={error} />
         <div className="center-link">
-          <Link to="/">← Back to products</Link>
+          <Link to="/products">&lt;- Back to products</Link>
         </div>
       </div>
     );
@@ -57,7 +57,7 @@ export default function ProductDetail() {
 
   return (
     <div className="container page-container">
-      <Link className="back-link" to="/">← Back to products</Link>
+      <Link className="back-link" to="/products">&lt;- Back to products</Link>
 
       <section className="detail-card">
         <div className="detail-image-wrap">

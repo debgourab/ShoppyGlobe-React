@@ -8,7 +8,8 @@ A complete Vite + React e-commerce application built to match the **ShoppyGlobe 
 |---|---|
 | Vite | Vite React project with `vite.config.js` |
 | App | Main application/root router |
-| Header | Navigation, search, cart icon/count |
+| Header | Navigation and cart count |
+| Browse Products | Separate `/products` page with catalogue search |
 | ProductList | API-backed product grid |
 | ProductItem | Product card + Add to Cart |
 | Product Detail | Dynamic `/products/:productId` route |
@@ -18,11 +19,11 @@ A complete Vite + React e-commerce application built to match the **ShoppyGlobe 
 | NotFound | Detailed 404 route |
 | Props | Reusable components receive data/callbacks via props |
 | useEffect | Product list and product detail fetching |
-| Custom hook | `useProducts()` |
+| Custom hook | Reusable `useProducts(getProducts)` hook |
 | Error handling | Fetch errors + retry UI |
-| Redux | Cart and search state using Redux Toolkit |
+| Redux | Cart state using Redux Toolkit |
 | Actions/reducer/selectors | Cart slice + selectors |
-| Search | Redux search state filters ProductList |
+| Search | Browse Products page filters ProductList |
 | React Router | `createBrowserRouter` + route parameters |
 | React lists | Products/cart rendered with unique keys |
 | Code splitting | All page components use `React.lazy` + `Suspense` |
@@ -53,7 +54,7 @@ Products are fetched from:
 
 `https://fakestoreapi.com/products`
 
-The API response is normalized by the custom `useProducts` hook.
+The API response is normalized in `productsApi.js`, and `useProducts(getProducts)` receives the product loader as an argument so the hook stays reusable.
 
 ## Project structure
 
@@ -84,13 +85,13 @@ ShoppyGlobe/
     │   ├── CartItem.jsx
     │   ├── Checkout.jsx
     │   ├── NotFound.jsx
-    │   ├── SearchBar.jsx
     │   ├── LazyImage.jsx
     │   ├── Loading.jsx
     │   ├── ErrorState.jsx
     │   └── EmptyState.jsx
     ├── pages/
-    │   └── Home.jsx
+    │   ├── Home.jsx
+    │   └── BrowseProducts.jsx
     └── styles/
         └── index.css
 ```
@@ -107,7 +108,7 @@ I use meaningful commits such as:
 6. `feat: add useProducts hook`
 7. `feat: create app router`
 8. `feat: create header`
-9. `feat: add search bar`
+9. `feat: add browse products page`
 10. `feat: create product list`
 11. `feat: create product item`
 12. `feat: add product detail`

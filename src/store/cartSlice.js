@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  items: [],
-  searchTerm: ""
+  items: []
 };
 
 const cartSlice = createSlice({
@@ -38,9 +37,6 @@ const cartSlice = createSlice({
     },
     clearCart(state) {
       state.items = [];
-    },
-    setSearchTerm(state, action) {
-      state.searchTerm = action.payload;
     }
   }
 });
@@ -50,8 +46,7 @@ export const {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
-  clearCart,
-  setSearchTerm
+  clearCart
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
