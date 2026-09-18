@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 
 const heroProducts = [
   {
-    src: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
+    src: "/images/featured-backpack.jpg",
     alt: "Brown backpack"
   },
   {
-    src: "https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg",
+    src: "/images/featured-jacket.jpg",
     alt: "Men's cotton jacket"
   },
   {
-    src: "https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg",
+    src: "/images/featured-top.jpg",
     alt: "Women's casual top"
   }
 ];
