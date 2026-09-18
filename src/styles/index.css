@@ -9,9 +9,9 @@
   --ink: #172033;
   --muted: #667085;
   --line: #d9dee8;
-  --primary: #0f766e;
-  --primary-dark: #0a5d57;
-  --accent: #f59e0b;
+  --primary: 	#0080ff;
+  --primary-dark: #00bfff;
+  --accent: #b8b894;
   --soft-primary: #e5f3f1;
   --surface: #ffffff;
   --success: #15803d;
@@ -106,7 +106,7 @@ img {
   border-radius: 8px;
   color: #ffffff;
   background: var(--primary);
-  box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);
+  box-shadow: 0 8px 18px rgba(0, 128, 255, 0.2);
 }
 
 .nav-links {
